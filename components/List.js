@@ -1,12 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {FlatList} from 'react-native';
+import {useMedia} from '../hooks/ApiHooks';
 import ListItem from './ListItem';
-import {baseUrl} from '../utils/variables';
-import { useLoadMedia } from '../hooks/ApiHooks';
 
 const List = (props) => {
-  const mediaArray = useLoadMedia();
+  const {mediaArray} = useMedia();
   return (
     <FlatList
       data={mediaArray}
