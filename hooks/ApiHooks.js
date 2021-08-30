@@ -1,11 +1,12 @@
 import {useEffect, useState} from 'react';
+import {doFetch} from '../utils/http';
 import {baseUrl} from '../utils/variables';
-import {doFetch} from './http';
 
 const useMedia = () => {
   const [mediaArray, setMediaArray] = useState([]);
 
   useEffect(() => {
+    // https://scriptverse.academy/tutorials/js-self-invoking-functions.html
     (async () => {
       setMediaArray(await loadMedia());
     })();
@@ -25,7 +26,7 @@ const useMedia = () => {
 
   const loadSingleMedia = async (id) => {
     try {
-      const tiedosto = await doFetch(baseUrl + 'media/' + id + '1');
+      const tiedosto = await doFetch(baseUrl + 'media/' + id);
       return tiedosto;
     } catch (e) {
       console.log('loadSingleMedia', e.message);
