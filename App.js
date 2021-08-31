@@ -7,7 +7,7 @@ const App = () => {
   return (
     <SafeAreaView style={styles.droidSafeArea}>
       <View style={styles.container}>
-        <List />
+        <List style={styles.list} />
       </View>
       <StatusBar style="auto" />
     </SafeAreaView>
@@ -16,12 +16,15 @@ const App = () => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fff',
+    backgroundColor: '#484a49',
   },
   droidSafeArea: {
     flex: 1,
     backgroundColor: '#ccc',
     paddingTop: Platform.OS === 'android' ? 25 : 0,
+  },
+  list: {
+
   },
 });
 
