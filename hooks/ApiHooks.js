@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useEffect, useState} from 'react';
 import {doFetch} from '../utils/http';
 import {baseUrl} from '../utils/variables';
@@ -37,4 +38,38 @@ const useMedia = () => {
   return {mediaArray, loadMedia, loadSingleMedia};
 };
 
-export {useMedia};
+const logInApi = async () => {
+  try {
+    const fetchOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: '{"username": "thekents","password": "ASDASD1234"}',
+    };
+    const response = await doFetch(baseUrl + 'login', fetchOptions);
+    return response.token;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+const register = async (inputs) => {
+  const fetchOptions = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(inputs),
+  };
+  try {
+     const response = await fetch(apiUrl + 'users', fetchOptions);
+     const json = await response.json();
+     return json;
+  } catch (e) {
+      console.log('ApiHooks register', e.message);
+      return false;
+  }
+};
+
+export {useMedia, logInApi, register};
