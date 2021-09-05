@@ -28,7 +28,6 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     flex: 1,
     backgroundColor: '#363e4d',
-
   },
   imagebox: {
     flex: 1,
