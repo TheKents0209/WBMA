@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Image, Text, TouchableOpacity, View, StyleSheet} from 'react-native';
+import {TouchableOpacity, View, StyleSheet, ActivityIndicator} from 'react-native';
 import {uploadsUrl} from '../utils/variables';
+import { Card, ListItem as RNEListItem, Button, Icon, Image, Text } from 'react-native-elements';
+
 
 const ListItem = ({singleMedia, navigation}) => {
   console.log('singleMedia', singleMedia);
@@ -14,14 +16,20 @@ const ListItem = ({singleMedia, navigation}) => {
     >
       <View style={styles.imagebox}>
         <Image
-          style={styles.image}
+          style={{width: 60, height: 60}}
           source={{uri: uploadsUrl + singleMedia.thumbnails?.w160}}
+          PlaceholderContent={<ActivityIndicator></ActivityIndicator>}
         />
       </View>
-      <View style={styles.textbox}>
-        <Text style={styles.listTitle}>{singleMedia.title}</Text>
+      <View style={{flex: 2, marginLeft: 15}}>
+        <Text h4 style={{}}>{singleMedia.title}</Text>
         <Text>{singleMedia.description}</Text>
       </View>
+      <Button title="View" onPress={() => {
+        navigation.navigate('Single', singleMedia);
+      }}>
+
+      </Button>
     </TouchableOpacity>
   );
 };
@@ -35,21 +43,9 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     flex: 1,
   },
-  imagebox: {
-    flex: 1,
-  },
   image: {
     flex: 1,
     borderRadius: 6,
-  },
-  textbox: {
-    flex: 2,
-    padding: 10,
-  },
-  listTitle: {
-    fontWeight: 'bold',
-    fontSize: 20,
-    paddingBottom: 15,
   },
 });
 
