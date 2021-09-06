@@ -5,7 +5,7 @@ import {StyleSheet, SafeAreaView, Text, Button} from 'react-native';
 import {MainContext} from '../contexts/MainContext';
 
 const Profile = (props) => {
-  const [isLoggedIn, setIsLoggedIn] = useContext(MainContext);
+  const [isLoggedIn, setIsLoggedIn, user] = useContext(MainContext);
   console.log('profile', isLoggedIn);
   const logout = async () => {
     setIsLoggedIn(false);
@@ -15,6 +15,7 @@ const Profile = (props) => {
   return (
     <SafeAreaView style={styles.container}>
       <Text>Profile</Text>
+      <Text> {user.username}</Text>
       <Button title={'Logout'} onPress={logout} />
     </SafeAreaView>
   );

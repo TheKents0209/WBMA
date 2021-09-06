@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
 import {View, Button} from 'react-native';
-import FormTextInput from './FormTextInput';
+import FormTextInput from '../components/FormTextInput';
 import useLoginForm from '../hooks/LoginHooks';
 import {MainContext} from '../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -9,20 +9,22 @@ import {useLogin} from '../hooks/ApiHooks';
 
 const LoginForm = ({navigation}) => {
   const {inputs, handleInputChange} = useLoginForm();
-  const {setIsLoggedIn} = useContext(MainContext);
+  const {setIsLoggedIn, setUser} = useContext(MainContext);
   const {login} = useLogin();
 
   const doLogin = async () => {
-    const serverResponse = await useLogin(inputs);
-    if (serverResponse) {
-      Alert.alert(serverResponse.message);
-
-    } else {
-      Alert.alert('login failed');
+    try {
+      const loginInfo = await login(JSON.stringify(inputs));
+      console.log('doLogin response', loginInfo);
+      await AsyncStorage.setItem('userToken', loginInfo.token);
+      // TODO: Save user info (loginInfo.user) to MainContext
+      setUser(loginInfo.user);
+      setIsLoggedIn(true);
+    } catch (error) {
+      console.log('doLogin error', error);
     }
-};
-
-const {inputs, handleInputChange} = useLoginForm();
+    // navigation.navigate('Home');
+  };
 
   return (
     <View>
