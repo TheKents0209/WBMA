@@ -1,20 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Button, View} from 'react-native';
-import { register } from '../hooks/ApiHooks';
+import {View, Button} from 'react-native';
 import FormTextInput from './FormTextInput';
+import useSignUpForm from '../hooks/RegisterHooks';
 
 const RegisterForm = ({navigation}) => {
-  const doRegister = async () => {
-    const serverResponse = await register(inputs);
-    if (serverResponse) {
-      Alert.alert(serverResponse.message);
-    } else {
-      Alert.alert('register failed');
-    }
-};
+  const {handleInputChange} = useSignUpForm();
 
-  const {inputs, handleInputChange} = useSignUpForm();
+  const doRegister = () => {
+    // TODO: add register() to useUser() hook in API hooks
+  };
 
   return (
     <View>
@@ -44,7 +39,7 @@ const RegisterForm = ({navigation}) => {
   );
 };
 
-List.propTypes = {
+RegisterForm.propTypes = {
   navigation: PropTypes.object.isRequired,
 };
 

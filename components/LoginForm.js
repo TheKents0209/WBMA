@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
 import {View, Button} from 'react-native';
-import FormTextInput from '../components/FormTextInput';
+import FormTextInput from './FormTextInput';
 import useLoginForm from '../hooks/LoginHooks';
 import {MainContext} from '../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -17,7 +17,6 @@ const LoginForm = ({navigation}) => {
       const loginInfo = await login(JSON.stringify(inputs));
       console.log('doLogin response', loginInfo);
       await AsyncStorage.setItem('userToken', loginInfo.token);
-      // TODO: Save user info (loginInfo.user) to MainContext
       setUser(loginInfo.user);
       setIsLoggedIn(true);
     } catch (error) {

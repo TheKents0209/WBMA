@@ -39,15 +39,14 @@ const useMedia = () => {
 
 const useLogin = () => {
   const login = async (userCredentials) => {
-    const fetchOptions = {
+    const requestOptions = {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      // mode: 'no-cors',
+      headers: {'Content-Type': 'application/json'},
       body: userCredentials,
     };
     try {
-      const loginResponse = await doFetch(baseUrl + 'login', fetchOptions);
+      const loginResponse = await doFetch(baseUrl + 'login', requestOptions);
       return loginResponse;
     } catch (error) {
       console.log('login error', error.message);
