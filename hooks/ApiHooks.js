@@ -69,6 +69,16 @@ const useUser = () => {
     }
   };
 
+  const checkUsernameAvailable = async (username) => {
+    try {
+      const usernameInfo = await doFetch(
+        baseUrl + 'users/username/' + username
+      );
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   const register = async (inputs) => {
     const fetchOptions = {
       method: 'POST',
@@ -87,7 +97,7 @@ const useUser = () => {
     }
   };
 
-  return {checkToken, register};
+  return {checkToken, register, checkUsernameAvailable};
 };
 
 const useTag = () => {
