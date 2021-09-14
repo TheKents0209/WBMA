@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/display-name */
 import React, {useContext} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
@@ -7,24 +9,36 @@ import Single from '../views/Single';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Login from '../views/Login';
 import {MainContext} from '../contexts/MainContext';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {Icon} from 'react-native-elements';
+import Upload from '../views/Upload';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 const TabScreen = () => {
   return (
-    <Tab.Navigator>
-      <Tab.Screen name="Home" component={Home} options={{
-        tabBarIcon: ({ color }) => (
-          <MaterialCommunityIcons name="home" color={color} size={26} />
-        ),
-      }}/>
-      <Tab.Screen name="Profile" component={Profile} options={{
-        tabBarIcon: ({ color }) => (
-          <MaterialCommunityIcons name="account" color={color} size={26} />
-        ),
-      }}/>
+    <Tab.Navigator
+      screenOptions={({route}) => ({
+        tabBarIcon: ({color, size}) => {
+          let iconName = '';
+          switch (route.name) {
+            case 'Home':
+              iconName = 'home';
+              break;
+            case 'Profile':
+              iconName = 'account-box';
+              break;
+            case 'Upload':
+              iconName = 'account-box';
+              break;
+          }
+          return <Icon name={iconName} size={size} color={color} />;
+        },
+      })}
+    >
+      <Tab.Screen name="Home" component={Home}></Tab.Screen>
+      <Tab.Screen name="Profile" component={Profile}></Tab.Screen>
+      <Tab.Screen name="Upload" component={Upload}></Tab.Screen>
     </Tab.Navigator>
   );
 };

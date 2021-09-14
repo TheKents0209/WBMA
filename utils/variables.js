@@ -1,4 +1,5 @@
-const uploadsUrl = 'https://media.mw.metropolia.fi/wbma/uploads/';
 const baseUrl = 'https://media.mw.metropolia.fi/wbma/';
+const uploadsUrl = baseUrl + 'uploads/';
+const appID = 'kenertinAppi';
 
-export {baseUrl, uploadsUrl};
+export {baseUrl, uploadsUrl, appID};
