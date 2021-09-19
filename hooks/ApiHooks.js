@@ -1,18 +1,18 @@
-import axios from 'axios';
-import {useEffect, useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
+import {MainContext} from '../contexts/MainContext';
 import {doFetch} from '../utils/http';
 import {appID, baseUrl} from '../utils/variables';
 
 const useMedia = () => {
   const [mediaArray, setMediaArray] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [update, setUpdate] = useState(0);
+  const {update} = useContext(MainContext);
 
   useEffect(() => {
     // https://scriptverse.academy/tutorials/js-self-invoking-functions.html
     (async () => {
       setMediaArray(await loadMedia());
-      console.log('useMedia useEffect', mediaArray);
+      // console.log('useMedia useEffect', mediaArray);
     })();
   }, [update]);
 
@@ -43,18 +43,15 @@ const useMedia = () => {
       setLoading(true);
       const options = {
         method: 'POST',
-        headers: {'x-access-token': token},
-        data: formData,
+        headers: {
+          'x-access-token': token,
+        },
+        body: formData,
       };
-      const result = await axios(baseUrl + 'media/', options);
-      // console.log('axios', result.data);
-      if (result.data) {
-        setUpdate(update + 1);
-        console.log('update', update);
-        return result.data;
-      }
+      const result = await doFetch(baseUrl + 'media', options);
+      return result;
     } catch (e) {
-      // console.log('axios error', e.message);
+      console.log('uploadMedia error', e);
       throw new Error(e.message);
     } finally {
       setLoading(false);
@@ -153,7 +150,7 @@ const useTag = () => {
       },
       body: JSON.stringify({file_id, tag}),
     };
-    console.log('optiot', options);
+    // console.log('optiot', options);
     try {
       const tagInfo = await doFetch(baseUrl + 'tags', options);
       return tagInfo;
